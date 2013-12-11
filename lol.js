@@ -20,6 +20,10 @@ regions = {
 	'tr' : 'Turkey'
 }
 
+function isObject(obj) {
+  return toString.call(obj) === "[object Object]";
+}
+
 function getRegions(cb) {
 	if(cb) cb(null, regions);
 	return regions;
@@ -137,7 +141,7 @@ function getSummonerNamesFromIds(key, region, ids, cb) {
 function getRunes(key, region, summoner, cb) {
 	if(!region) region = 'na';
 	if(!checkKey(key, cb)) return;
-	id = (summoner instanceof Object) ? summoner['id'] : summoner;
+	id = isObject(summoner) ? summoner['id'] : summoner;
 	request(apiUrl('/api/lol/' + region + '/' + LEAGUE_API_VERSION + '/summoner/' + id + '/runes', key), function(err, response, data) {
 		if(checkError(err, data, cb) && checkResponseStatus(response, data, cb)) {
 			var runes = JSON.parse(data)['pages'];
@@ -152,7 +156,7 @@ function getRunes(key, region, summoner, cb) {
 function getMasteries(key, region, summoner, cb) {
 	if(!region) region = 'na';
 	if(!checkKey(key, cb)) return;
-	id = (summoner instanceof Object) ? summoner['id'] : summoner;
+	id = isObject(summoner) ? summoner['id'] : summoner;
 	request(apiUrl('/api/lol/' + region + '/' + LEAGUE_API_VERSION + '/summoner/' + id + '/masteries', key), function(err, response, data) {
 		if(checkError(err, data, cb) && checkResponseStatus(response, data, cb)) {
 			var masteries = JSON.parse(data)['pages'];
@@ -167,7 +171,7 @@ function getMasteries(key, region, summoner, cb) {
 function getTeams(key, region, summoner, cb) {
 	if(!region) region = 'na';
 	if(!checkKey(key, cb)) return;
-	id = (summoner instanceof Object) ? summoner['id'] : summoner;
+	id = isObject(summoner) ? summoner['id'] : summoner;
 	request(apiUrl('/api/' + region + '/' + RIOT_API_VERSION + '/team/by-summoner/' + id, key), function(err, response, data) {
 		if(checkError(err, data, cb) && checkResponseStatus(response, data, cb)) {
 			var teams = JSON.parse(data);
@@ -182,7 +186,7 @@ function getTeams(key, region, summoner, cb) {
 function getLeagues(key, region, summoner, cb) {
 	if(!region) region = 'na';
 	if(!checkKey(key, cb)) return;
-	id = (summoner instanceof Object) ? summoner['id'] : summoner;
+	id = isObject(summoner) ? summoner['id'] : summoner;
 	request(apiUrl('/api/' + region + '/' + RIOT_API_VERSION + '/league/by-summoner/' + id, key), function(err, response, data) {
 		if(checkError(err, data, cb) && checkResponseStatus(response, data, cb)) {
 			var leagues = []
@@ -201,7 +205,7 @@ function getLeagues(key, region, summoner, cb) {
 function getRecentGames(key, region, summoner, cb) {
 	if(!region) region = 'na';
 	if(!checkKey(key, cb)) return;
-	id = (summoner instanceof Object) ? summoner['id'] : summoner;
+	id = isObject(summoner) ? summoner['id'] : summoner;
 	request(apiUrl('/api/lol/' + region + '/' + LEAGUE_API_VERSION + '/game/by-summoner/' + id + '/recent', key), function(err, response, data) {
 		if(checkError(err, data, cb) && checkResponseStatus(response, data, cb)) {
 			var games = JSON.parse(data)['games'];
@@ -216,7 +220,7 @@ function getRecentGames(key, region, summoner, cb) {
 function getRankedStatsForSeason(key, region, season, summoner, cb) {
 	if(!region) region = 'na';
 	if(!checkKey(key, cb)) return;
-	id = (summoner instanceof Object) ? summoner['id'] : summoner;
+	id = isObject(summoner) ? summoner['id'] : summoner;
 	var url = apiUrl('/api/lol/' + region + '/' + LEAGUE_API_VERSION + '/stats/by-summoner/' + id + '/ranked', key);
 	if(season != undefined) {
 		url = apiUrl('/api/lol/' + region + '/' + LEAGUE_API_VERSION + '/stats/by-summoner/' + id + '/ranked', key) + '&season=SEASON' + season;
@@ -239,7 +243,7 @@ function getRankedStats(key, region, summoner, cb) {
 function getStatsSummaryForSeason(key, region, season, summoner, cb) {
 	if(!region) region = 'na';
 	if(!checkKey(key, cb)) return;
-	id = (summoner instanceof Object) ? summoner['id'] : summoner;
+	id = isObject(summoner) ? summoner['id'] : summoner;
 	var url = apiUrl('/api/lol/' + region + '/' + LEAGUE_API_VERSION + '/stats/by-summoner/' + id + '/summary', key);
 	if(season != undefined) {
 		url = apiUrl('/api/lol/' + region + '/' + LEAGUE_API_VERSION + '/stats/by-summoner/' + id + '/summary', key) + '&season=SEASON' + season;
