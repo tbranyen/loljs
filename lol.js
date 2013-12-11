@@ -1,6 +1,6 @@
 var request = require('request');
 
-var ENDPOINT = 'http://prod.api.pvp.net';
+var ENDPOINT = process.env.ENDPOINT || 'http://prod.api.pvp.net';
 var LEAGUE_API_VERSION = 'v1.1';
 var RIOT_API_VERSION = 'v2.1';
 
